@@ -41,6 +41,7 @@ These files contain system logic, scripts, templates, and instructions that impr
 | `modes/auto-pipeline.md` | Auto-pipeline instructions |
 | `modes/contacto.md` | LinkedIn outreach instructions |
 | `modes/deep.md` | Research prompt instructions |
+| `modes/regional/*` | Regional market calibration modes |
 | `modes/ofertas.md` | Comparison instructions |
 | `modes/pipeline.md` | Pipeline processing instructions |
 | `modes/project.md` | Project evaluation instructions |
@@ -51,10 +52,13 @@ These files contain system logic, scripts, templates, and instructions that impr
 | `modes/de/*` | German language modes |
 | `modes/fr/*` | French language modes |
 | `modes/ja/*` | Japanese language modes |
+| `modes/pl/*` | Polish language modes |
 | `modes/pt/*` | Portuguese language modes |
 | `modes/ru/*` | Russian language modes |
+| `modes/heuristics/*` | Shared candidate-facing application heuristics |
 | `CLAUDE.md` | Agent instructions (Claude Code) |
 | `OPENCODE.md` | Agent instructions (OpenCode) |
+| `GEMINI.md` | Legacy no-op context guard (prevents Antigravity duplicate imports) |
 | `AGENTS.md` | Canonical agent instructions (imported by CLI-specific wrappers) |
 | `*.mjs` | Utility scripts |
 | `batch/batch-prompt.md` | Batch worker prompt |
@@ -66,6 +70,7 @@ These files contain system logic, scripts, templates, and instructions that impr
 | `.opencode/skills/*` | Skill definitions (OpenCode) |
 | `.qwen/skills/*` | Skill definitions (Qwen Code) |
 | `.antigravitycli/skills/*` | Skill definitions (Antigravity CLI) |
+| `.grok/skills/*` | Skill definitions (Grok Build CLI) |
 | `docs/*` | Documentation |
 | `VERSION` | Current version number |
 | `DATA_CONTRACT.md` | This file |
