@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-slate-950 text-slate-100 antialiased; font-family: 'Geist Sans', system-ui, sans-serif; }
+  code, pre, kbd, samp { font-family: 'Geist Mono', ui-monospace, monospace; }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-600; }
+
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
+}
+
+@layer components {
+  .card { @apply bg-slate-800/60 border border-slate-700/50 rounded-2xl backdrop-blur-sm; }
+  .card-hover { @apply card hover:bg-slate-800/80 hover:border-slate-600/50 transition-all duration-200 cursor-pointer; }
+
+  .btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-indigo-500 hover:bg-indigo-400 text-white; }
+  .btn-secondary { @apply btn bg-slate-700/70 hover:bg-slate-700 text-slate-200; }
+  .btn-ghost { @apply btn hover:bg-slate-700/50 text-slate-400 hover:text-slate-100; }
+  .btn-danger { @apply btn bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20; }
+  .btn-sm { @apply px-3 py-1.5 text-xs rounded-lg; }
+
+  .input { @apply w-full px-3 py-2.5 bg-slate-800 border border-slate-600/70 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/60 transition-all; }
+  .label { @apply block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide; }
+  .form-group { @apply space-y-1.5; }
+
+  .tab-btn { @apply px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150; }
+  .tab-active { @apply tab-btn bg-slate-700/70 text-slate-100; }
+  .tab-inactive { @apply tab-btn text-slate-400 hover:text-slate-200 hover:bg-slate-800/50; }
+
+  .stat-card { @apply card p-5 flex flex-col gap-3; }
+  .section-title { @apply text-xs font-semibold uppercase tracking-widest text-slate-500; }
+}
+
+@layer utilities {
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .text-gradient { background: linear-gradient(135deg, #818cf8, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+}

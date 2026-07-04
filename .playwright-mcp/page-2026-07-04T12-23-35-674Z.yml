@@ -1,0 +1,367 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - heading "Current openings at Razorpay Software Private Limited" [level=1] [ref=e4]
+      - generic [ref=e6]:
+        - img [ref=e7]
+        - generic [ref=e9]:
+          - paragraph [ref=e10]: Create a Job Alert
+          - paragraph [ref=e11]: Level-up your career by having opportunities at Razorpay Software Private Limited sent directly to your inbox.
+          - button "Create alert" [ref=e12] [cursor=pointer]
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e16]:
+            - generic [ref=e17]: Search
+            - textbox "Search" [ref=e18]
+          - generic [ref=e20]:
+            - generic [ref=e21]: Department
+            - generic [ref=e22]:
+              - log [ref=e24]
+              - generic [ref=e26]:
+                - generic [ref=e27]:
+                  - generic [ref=e28]: Select...
+                  - combobox "Department" [ref=e30]
+                - button "Toggle flyout" [ref=e32] [cursor=pointer]:
+                  - img [ref=e33]
+          - generic [ref=e36]:
+            - generic [ref=e37]: Office
+            - generic [ref=e38]:
+              - log [ref=e40]
+              - generic [ref=e42]:
+                - generic [ref=e43]:
+                  - generic [ref=e44]: Select...
+                  - combobox "Office" [ref=e46]
+                - button "Toggle flyout" [ref=e48] [cursor=pointer]:
+                  - img [ref=e49]
+        - generic [ref=e51]:
+          - heading "27 jobs" [level=2] [ref=e52]
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - heading "Business" [level=3] [ref=e55]
+              - table [ref=e57]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e58]:
+                      - paragraph [ref=e59]: Job
+                - rowgroup [ref=e60]:
+                  - row "Manager, Enterprise Partnerships New Bengaluru" [ref=e61]:
+                    - cell "Manager, Enterprise Partnerships New Bengaluru" [ref=e62]:
+                      - link "Manager, Enterprise Partnerships New Bengaluru" [ref=e63] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4708904005
+                        - paragraph [ref=e64]:
+                          - text: Manager, Enterprise Partnerships
+                          - generic [ref=e66]: New
+                        - paragraph [ref=e67]: Bengaluru
+                  - row "Senior Associate, Finance Malaysia" [ref=e68]:
+                    - cell "Senior Associate, Finance Malaysia" [ref=e69]:
+                      - link "Senior Associate, Finance Malaysia" [ref=e70] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4686382005
+                        - paragraph [ref=e71]: Senior Associate, Finance
+                        - paragraph [ref=e72]: Malaysia
+                  - row "Solution Consultant Malaysia" [ref=e73]:
+                    - cell "Solution Consultant Malaysia" [ref=e74]:
+                      - link "Solution Consultant Malaysia" [ref=e75] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4688586005
+                        - paragraph [ref=e76]: Solution Consultant
+                        - paragraph [ref=e77]: Malaysia
+            - generic [ref=e78]:
+              - paragraph [ref=e80]: Business / Banking
+              - heading "Banking Alliances" [level=3] [ref=e81]
+              - table [ref=e83]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e84]:
+                      - paragraph [ref=e85]: Job
+                - rowgroup [ref=e86]:
+                  - row "Group Manager, Banking Alliance New Bengaluru" [ref=e87]:
+                    - cell "Group Manager, Banking Alliance New Bengaluru" [ref=e88]:
+                      - link "Group Manager, Banking Alliance New Bengaluru" [ref=e89] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4710096005
+                        - paragraph [ref=e90]:
+                          - text: Group Manager, Banking Alliance
+                          - generic [ref=e92]: New
+                        - paragraph [ref=e93]: Bengaluru
+            - generic [ref=e94]:
+              - paragraph [ref=e96]: Business / Banking
+              - heading "Banking Solutions" [level=3] [ref=e97]
+              - table [ref=e99]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e100]:
+                      - paragraph [ref=e101]: Job
+                - rowgroup [ref=e102]:
+                  - row "Associate Manager, Banking solutions Ahmedabad; Mumbai" [ref=e103]:
+                    - cell "Associate Manager, Banking solutions Ahmedabad; Mumbai" [ref=e104]:
+                      - link "Associate Manager, Banking solutions Ahmedabad; Mumbai" [ref=e105] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4692369005
+                        - paragraph [ref=e106]: Associate Manager, Banking solutions
+                        - paragraph [ref=e107]: Ahmedabad; Mumbai
+            - generic [ref=e108]:
+              - paragraph [ref=e110]: Business / Business Engineering & Sales Enablement Team
+              - heading "Solutions" [level=3] [ref=e111]
+              - table [ref=e113]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e114]:
+                      - paragraph [ref=e115]: Job
+                - rowgroup [ref=e116]:
+                  - row "Solutions Engineer Malaysia" [ref=e117]:
+                    - cell "Solutions Engineer Malaysia" [ref=e118]:
+                      - link "Solutions Engineer Malaysia" [ref=e119] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4661194005
+                        - paragraph [ref=e120]: Solutions Engineer
+                        - paragraph [ref=e121]: Malaysia
+            - generic [ref=e122]:
+              - paragraph [ref=e124]: Business / Business Engineering & Sales Enablement Team
+              - heading "Technical Account Management" [level=3] [ref=e125]
+              - table [ref=e127]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e128]:
+                      - paragraph [ref=e129]: Job
+                - rowgroup [ref=e130]:
+                  - row "Technical Account Manager Malaysia" [ref=e131]:
+                    - cell "Technical Account Manager Malaysia" [ref=e132]:
+                      - link "Technical Account Manager Malaysia" [ref=e133] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4651045005
+                        - paragraph [ref=e134]: Technical Account Manager
+                        - paragraph [ref=e135]: Malaysia
+            - generic [ref=e136]:
+              - paragraph [ref=e138]: Business
+              - heading "Customer Success" [level=3] [ref=e139]
+              - table [ref=e141]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e142]:
+                      - paragraph [ref=e143]: Job
+                - rowgroup [ref=e144]:
+                  - row "Associate, Customer Success Malaysia" [ref=e145]:
+                    - cell "Associate, Customer Success Malaysia" [ref=e146]:
+                      - link "Associate, Customer Success Malaysia" [ref=e147] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4650635005
+                        - paragraph [ref=e148]: Associate, Customer Success
+                        - paragraph [ref=e149]: Malaysia
+            - generic [ref=e150]:
+              - paragraph [ref=e152]: Business
+              - heading "GTM Offline First" [level=3] [ref=e153]
+              - table [ref=e155]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e156]:
+                      - paragraph [ref=e157]: Job
+                - rowgroup [ref=e158]:
+                  - row "Manager, Retention and Growth Kolkata" [ref=e159]:
+                    - cell "Manager, Retention and Growth Kolkata" [ref=e160]:
+                      - link "Manager, Retention and Growth Kolkata" [ref=e161] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4702165005
+                        - paragraph [ref=e162]: Manager, Retention and Growth
+                        - paragraph [ref=e163]: Kolkata
+            - generic [ref=e164]:
+              - paragraph [ref=e166]: Business / GTM - Online First
+              - heading "Enterprise Hunting." [level=3] [ref=e167]
+              - table [ref=e169]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e170]:
+                      - paragraph [ref=e171]: Job
+                - rowgroup [ref=e172]:
+                  - row "Manager, Enterprise Sales Bengaluru; Gurugram" [ref=e173]:
+                    - cell "Manager, Enterprise Sales Bengaluru; Gurugram" [ref=e174]:
+                      - link "Manager, Enterprise Sales Bengaluru; Gurugram" [ref=e175] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4678716005
+                        - paragraph [ref=e176]: Manager, Enterprise Sales
+                        - paragraph [ref=e177]: Bengaluru; Gurugram
+            - generic [ref=e178]:
+              - paragraph [ref=e180]: Business / GTM - Online First
+              - heading "Partnerships." [level=3] [ref=e181]
+              - table [ref=e183]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e184]:
+                      - paragraph [ref=e185]: Job
+                - rowgroup [ref=e186]:
+                  - row "Manager, Partnerships Mumbai" [ref=e187]:
+                    - cell "Manager, Partnerships Mumbai" [ref=e188]:
+                      - link "Manager, Partnerships Mumbai" [ref=e189] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4699137005
+                        - paragraph [ref=e190]: Manager, Partnerships
+                        - paragraph [ref=e191]: Mumbai
+            - generic [ref=e192]:
+              - paragraph [ref=e194]: Business
+              - heading "GTM - Startups" [level=3] [ref=e195]
+              - table [ref=e197]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e198]:
+                      - paragraph [ref=e199]: Job
+                - rowgroup [ref=e200]:
+                  - row "Associate Manager, Startup Accounts Bengaluru" [ref=e201]:
+                    - cell "Associate Manager, Startup Accounts Bengaluru" [ref=e202]:
+                      - link "Associate Manager, Startup Accounts Bengaluru" [ref=e203] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4704566005
+                        - paragraph [ref=e204]: Associate Manager, Startup Accounts
+                        - paragraph [ref=e205]: Bengaluru
+                  - row "Associate Manager, Startup Accounts New Bengaluru" [ref=e206]:
+                    - cell "Associate Manager, Startup Accounts New Bengaluru" [ref=e207]:
+                      - link "Associate Manager, Startup Accounts New Bengaluru" [ref=e208] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4711971005
+                        - paragraph [ref=e209]:
+                          - text: Associate Manager, Startup Accounts
+                          - generic [ref=e211]: New
+                        - paragraph [ref=e212]: Bengaluru
+            - generic [ref=e213]:
+              - paragraph [ref=e215]: Business
+              - heading "Marketing" [level=3] [ref=e216]
+              - table [ref=e218]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e219]:
+                      - paragraph [ref=e220]: Job
+                - rowgroup [ref=e221]:
+                  - row "Associate-Growth Operations Malaysia" [ref=e222]:
+                    - cell "Associate-Growth Operations Malaysia" [ref=e223]:
+                      - link "Associate-Growth Operations Malaysia" [ref=e224] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4696281005
+                        - paragraph [ref=e225]: Associate-Growth Operations
+                        - paragraph [ref=e226]: Malaysia
+                  - row "Senior Associate, Emerging Business Bengaluru" [ref=e227]:
+                    - cell "Senior Associate, Emerging Business Bengaluru" [ref=e228]:
+                      - link "Senior Associate, Emerging Business Bengaluru" [ref=e229] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4705896005
+                        - paragraph [ref=e230]: Senior Associate, Emerging Business
+                        - paragraph [ref=e231]: Bengaluru
+                  - row "Senior Manager, Public Relations Malaysia" [ref=e232]:
+                    - cell "Senior Manager, Public Relations Malaysia" [ref=e233]:
+                      - link "Senior Manager, Public Relations Malaysia" [ref=e234] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4696809005
+                        - paragraph [ref=e235]: Senior Manager, Public Relations
+                        - paragraph [ref=e236]: Malaysia
+            - generic [ref=e237]:
+              - paragraph [ref=e239]: Business / Mid Market
+              - heading "Mid Market Sales" [level=3] [ref=e240]
+              - table [ref=e242]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e243]:
+                      - paragraph [ref=e244]: Job
+                - rowgroup [ref=e245]:
+                  - row "Associate Manager, Mid Market Sales Bengaluru" [ref=e246]:
+                    - cell "Associate Manager, Mid Market Sales Bengaluru" [ref=e247]:
+                      - link "Associate Manager, Mid Market Sales Bengaluru" [ref=e248] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4701770005
+                        - paragraph [ref=e249]: Associate Manager, Mid Market Sales
+                        - paragraph [ref=e250]: Bengaluru
+            - generic [ref=e251]:
+              - paragraph [ref=e253]: Business / People Operations
+              - heading "Learning and Development" [level=3] [ref=e254]
+              - table [ref=e256]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e257]:
+                      - paragraph [ref=e258]: Job
+                - rowgroup [ref=e259]:
+                  - row "Senior Associate, Learning Business Partner Bengaluru" [ref=e260]:
+                    - cell "Senior Associate, Learning Business Partner Bengaluru" [ref=e261]:
+                      - link "Senior Associate, Learning Business Partner Bengaluru" [ref=e262] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4707357005
+                        - paragraph [ref=e263]: Senior Associate, Learning Business Partner
+                        - paragraph [ref=e264]: Bengaluru
+            - generic [ref=e265]:
+              - paragraph [ref=e267]: Business / SME
+              - heading "SME Sales" [level=3] [ref=e268]
+              - table [ref=e270]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e271]:
+                      - paragraph [ref=e272]: Job
+                - rowgroup [ref=e273]:
+                  - row "Senior Manager, Sales Singapore" [ref=e274]:
+                    - cell "Senior Manager, Sales Singapore" [ref=e275]:
+                      - link "Senior Manager, Sales Singapore" [ref=e276] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4709725005
+                        - paragraph [ref=e277]: Senior Manager, Sales
+                        - paragraph [ref=e278]: Singapore
+            - generic [ref=e279]:
+              - heading "Engineering" [level=3] [ref=e280]
+              - table [ref=e282]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e283]:
+                      - paragraph [ref=e284]: Job
+                - rowgroup [ref=e285]:
+                  - row "Engineering Manager Bengaluru" [ref=e286]:
+                    - cell "Engineering Manager Bengaluru" [ref=e287]:
+                      - link "Engineering Manager Bengaluru" [ref=e288] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4684254005
+                        - paragraph [ref=e289]: Engineering Manager
+                        - paragraph [ref=e290]: Bengaluru
+            - generic [ref=e291]:
+              - paragraph [ref=e293]: Engineering
+              - heading "Backend" [level=3] [ref=e294]
+              - table [ref=e296]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e297]:
+                      - paragraph [ref=e298]: Job
+                - rowgroup [ref=e299]:
+                  - row "Senior Software Development Engineer Malaysia" [ref=e300]:
+                    - cell "Senior Software Development Engineer Malaysia" [ref=e301]:
+                      - link "Senior Software Development Engineer Malaysia" [ref=e302] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4694070005
+                        - paragraph [ref=e303]: Senior Software Development Engineer
+                        - paragraph [ref=e304]: Malaysia
+            - generic [ref=e305]:
+              - paragraph [ref=e307]: Product
+              - heading "Product Management" [level=3] [ref=e308]
+              - table [ref=e310]:
+                - rowgroup:
+                  - row "Job":
+                    - columnheader "Job" [ref=e311]:
+                      - paragraph [ref=e312]: Job
+                - rowgroup [ref=e313]:
+                  - row "Full Stack Builder New Bengaluru" [ref=e314]:
+                    - cell "Full Stack Builder New Bengaluru" [ref=e315]:
+                      - link "Full Stack Builder New Bengaluru" [ref=e316] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4699107005
+                        - paragraph [ref=e317]:
+                          - text: Full Stack Builder
+                          - generic [ref=e319]: New
+                        - paragraph [ref=e320]: Bengaluru
+                  - row "Product Manager II Bengaluru" [ref=e321]:
+                    - cell "Product Manager II Bengaluru" [ref=e322]:
+                      - link "Product Manager II Bengaluru" [ref=e323] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4671921005
+                        - paragraph [ref=e324]: Product Manager II
+                        - paragraph [ref=e325]: Bengaluru
+                  - row "Product Manager II Bengaluru" [ref=e326]:
+                    - cell "Product Manager II Bengaluru" [ref=e327]:
+                      - link "Product Manager II Bengaluru" [ref=e328] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4701363005
+                        - paragraph [ref=e329]: Product Manager II
+                        - paragraph [ref=e330]: Bengaluru
+                  - row "Product Manager II Bengaluru" [ref=e331]:
+                    - cell "Product Manager II Bengaluru" [ref=e332]:
+                      - link "Product Manager II Bengaluru" [ref=e333] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4678743005
+                        - paragraph [ref=e334]: Product Manager II
+                        - paragraph [ref=e335]: Bengaluru
+                  - row "Senior Product Manager New Bengaluru" [ref=e336]:
+                    - cell "Senior Product Manager New Bengaluru" [ref=e337]:
+                      - link "Senior Product Manager New Bengaluru" [ref=e338] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4686405005
+                        - paragraph [ref=e339]:
+                          - text: Senior Product Manager
+                          - generic [ref=e341]: New
+                        - paragraph [ref=e342]: Bengaluru
+                  - row "Senior Product Manager (Growth) Bengaluru" [ref=e343]:
+                    - cell "Senior Product Manager (Growth) Bengaluru" [ref=e344]:
+                      - link "Senior Product Manager (Growth) Bengaluru" [ref=e345] [cursor=pointer]:
+                        - /url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited/jobs/4694507005
+                        - paragraph [ref=e346]: Senior Product Manager (Growth)
+                        - paragraph [ref=e347]: Bengaluru
+  - contentinfo [ref=e348]:
+    - generic [ref=e349]:
+      - paragraph [ref=e350]: Powered by
+      - link "Greenhouse logo" [ref=e351] [cursor=pointer]:
+        - /url: https://www.greenhouse.com
+        - img "Greenhouse logo" [ref=e352]
