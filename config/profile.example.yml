@@ -20,6 +20,8 @@ candidate:
   # Switzerland) where a professional photo is expected. Use a local file path or
   # a data: URL — the PDF renderer inlines local images.
   photo: ""
+  # Optional framing for the CV photo: rounded (default), circle, or square.
+  photo_style: rounded
 
 target_roles:
   # Your North Star roles — what you're optimizing for
@@ -77,7 +79,8 @@ location:
 
 language:
   # Human-facing output language for reports, tracker notes, PDFs, cover
-  # letters, outreach, and form answers. Use an ISO language code.
+  # letters, outreach, and form answers. Use an ISO language code such as
+  # `en` or `zh-CN`; `zh-CN` also enables Chinese PDF typography rules.
   # This is separate from language.modes_dir: modes_dir selects market
   # vocabulary/rules, while output selects the prose language.
   output: en
@@ -106,6 +109,13 @@ cv:
   # Find it in your Canva design URL: https://www.canva.com/design/DAxxxxxxx/...
   # The ID starts with "D" and is 11 characters long.
   # canva_resume_design_id: "DAxxxxxxxxx"
+  # Which CV template to use by default. Value is the kebab-case name of a file
+  # in templates/ named cv-template.<name>.html (e.g. "modern" ->
+  # templates/cv-template.modern.html). Leave unset/commented to use the built-in
+  # templates/cv-template.html. You can also pick per-generation just by asking
+  # (e.g. "use the modern template").
+  # template: modern
+  # For a restrained Chinese technical CV, use: template: zh-minimal
 
 # ── Culture Screen ───────────────────────────────────────────────────────────
 #
@@ -136,6 +146,10 @@ cover_letter:
   # JD requests an immediate start. The user confirms the actual value before it
   # appears in the letter.
   notice_period_days: 30
+  # Which cover-letter template to use by default. Kebab-case name of a file in
+  # templates/ named cover-letter-template.<name>.html. Unset -> built-in
+  # templates/cover-letter-template.html.
+  # template: modern
 
   # Your current professional domain (used to detect domain gaps vs the JD).
   # Plain English, e.g. "digital media", "fintech", "healthcare IT".
