@@ -70,7 +70,7 @@ AI-powered, CLI-agnostic job search automation: pipeline tracking, offer evaluat
 | `data/scan-history.tsv` | Scanner dedup history |
 | `data/scan-runs.tsv` | Per-run scan counters (appended by `scan.mjs`, read by `stats.mjs`) |
 | `data/follow-ups.md` | Follow-up history tracker |
-| `data/blacklist.md` | Do-not-apply companies (user layer, opt-in, never auto-populated; respected by `scan.mjs` and the `auto-pipeline`/`oferta`/`apply` gates) |
+| `data/blacklist.md` | Do-not-apply companies (user layer, opt-in, never auto-populated; respected by `scan.mjs` and the `auto-pipeline`/`offer`/`apply` gates) |
 | `data/salary-observations.tsv` | Append-only salary observation log (user layer) |
 | `data/assessments.tsv` | Append-only skills-assessment log (user layer, created on first `add`) |
 | `portals.yml` | Query and company config |
@@ -253,9 +253,9 @@ Two separate axes:
 | If the user... | Mode |
 |----------------|------|
 | Pastes JD or URL | auto-pipeline (evaluate + report + PDF + tracker) |
-| Asks to evaluate offer | `oferta` |
-| Asks to compare offers | `ofertas` |
-| Wants LinkedIn outreach | `contacto` — identifies hiring manager, recruiter, or team peers via web search; drafts a ≤300-char message tailored to the contact type (recruiter / hiring manager / peer / interviewer) |
+| Asks to evaluate offer | `offer` |
+| Asks to compare offers | `offers` |
+| Wants LinkedIn outreach | `contact` — identifies hiring manager, recruiter, or team peers via web search; drafts a ≤300-char message tailored to the contact type (recruiter / hiring manager / peer / interviewer) |
 | Wants a formal application email | `email` — draft-only subject, body, attachment checklist, and contact block from a report or JD; never sends, submits, or clicks anything |
 | Asks for company research | `deep` — structured 6-axis research prompt (AI strategy, recent moves, engineering culture, likely challenges, competitors, candidate's angle) |
 | Preps for interview at specific company | `interview-prep` |
@@ -371,7 +371,7 @@ One TSV file per evaluation at `batch/tracker-additions/{num}-{company-slug}.tsv
 
 1. **NEVER edit applications.md to ADD new entries** -- write TSV in `batch/tracker-additions/` and let `merge-tracker.mjs` merge.
 2. **UPDATE status/notes of existing entries via `node set-status.mjs <report#|company> <State> [--note]`** — the canonical (locked, validated, atomic) write path. Do not hand-edit the table.
-3. All reports MUST include `**URL:**` in the header (between Score and PDF), and `**Legitimacy:** {tier}` (see Block G in `modes/oferta.md`).
+3. All reports MUST include `**URL:**` in the header (between Score and PDF), and `**Legitimacy:** {tier}` (see Block G in `modes/offer.md`).
 4. All statuses MUST be canonical (see `templates/states.yml`).
 5. Health check: `node verify-pipeline.mjs` · Normalize statuses: `node normalize-statuses.mjs` · Dedup: `node dedup-tracker.mjs`
 

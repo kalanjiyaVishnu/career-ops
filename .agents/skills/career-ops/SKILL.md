@@ -4,7 +4,7 @@ description: AI job search command center -- evaluate offers, tailor CVs, scan p
 arguments: mode
 user_invocable: true
 user-invocable: true
-argument-hint: "[scan | deep | pdf | latex | latex-tex | cover | email | add | expand | eu-swe | oferta | ofertas | apply | batch | tracker | agent-inbox | pipeline | contacto | training | project | interview-prep | interview | interview/plan | interview/practice | interview/debrief | interview-redflag | patterns | offer-prep | titles | upskill | followup | reply-watch | update]"
+argument-hint: "[scan | deep | pdf | latex | latex-tex | cover | email | add | expand | eu-swe | offer | offers | apply | batch | tracker | agent-inbox | pipeline | contact | training | project | interview-prep | interview | interview/plan | interview/practice | interview/debrief | interview-redflag | patterns | offer-prep | titles | upskill | followup | reply-watch | update]"
 license: MIT
 ---
 
@@ -37,9 +37,9 @@ Determine the mode from `$mode`:
 |-------|------|
 | (empty / no args) | `discovery` -- Show command menu |
 | JD text or URL (no sub-command) | **`auto-pipeline`** |
-| `oferta` | `oferta` |
-| `ofertas` | `ofertas` |
-| `contacto` | `contacto` |
+| `offer` / `oferta` | `offer` |
+| `offers` / `ofertas` | `offers` |
+| `contact` / `contacto` | `contact` |
 | `deep` | `deep` |
 | `interview-prep` | `interview-prep` |
 | `interview` | `interview` |
@@ -116,9 +116,9 @@ career-ops -- Command Center
 Available commands:
   /career-ops {JD}      → AUTO-PIPELINE: evaluate + report + PDF + tracker (paste text or URL)
   /career-ops pipeline  → Process pending URLs from inbox (data/pipeline.md)
-  /career-ops oferta    → Evaluation only A-F (no auto PDF)
-  /career-ops ofertas   → Compare and rank multiple offers
-  /career-ops contacto  → LinkedIn power move: find contacts + draft message
+  /career-ops offer     → Evaluation only A-F (no auto PDF)
+  /career-ops offers    → Compare and rank multiple offers
+  /career-ops contact   → LinkedIn power move: find contacts + draft message
   /career-ops deep      → Deep research prompt about company
   /career-ops interview-prep → Generate company-specific interview prep doc
   /career-ops interview    → Interactive profile/CV onboarding interview
@@ -163,7 +163,7 @@ If `modes/_custom.md` exists, read it after `modes/_profile.md` and before the s
 
 Read `modes/_shared.md` + `modes/_profile.md` (if exists) + `modes/_custom.md` (if exists) + `modes/{mode}.md`
 
-Applies to: `auto-pipeline`, `oferta`, `ofertas`, `pdf`, `contacto`, `apply`, `pipeline`, `scan`, `batch`
+Applies to: `auto-pipeline`, `offer`, `offers`, `pdf`, `contact`, `apply`, `pipeline`, `scan`, `batch`
 
 ### Standalone modes with profile and custom context
 

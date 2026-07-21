@@ -54,7 +54,7 @@ The Claude Code row uses concrete model names because that lineup is well-establ
 
 Every other reference to tier elsewhere in the modes (batch.md, pipeline.md, etc.) MUST refer to it only as "the economy/standard/premium tier" or "the tier's model" -- never repeat a hardcoded model/provider name outside this table. This keeps the routing logic model-agnostic: if any CLI's mapping changes, only that row in this table needs to change.
 
-**Output parity:** The model used for evaluation never changes the A-F report structure, headers, or sections. All three tiers produce an evaluation in the exact same format described below and in `modes/oferta.md`.
+**Output parity:** The model used for evaluation never changes the A-F report structure, headers, or sections. All three tiers produce an evaluation in the exact same format described below and in `modes/offer.md`.
 
 ## Scoring System
 
@@ -80,7 +80,7 @@ The evaluation uses 6 blocks (A-F) with a global score of 1-5:
 2. Actively look for evidence in the JD + Block G company research corresponding to those requirements (e.g., team size mentions, org-chart depth/manager layers, meeting-culture language, company stage).
 3. **If most `require` criteria have positive evidence** → score 4-5.
 4. **If some criteria have positive evidence, and none are contradicted** → score 3.
-5. **If evidence contradicts the `require` criteria** → **cap this dimension at 2/5**, and add an explicit line to Block A's Culture Screen field (see `oferta.md`) naming what's missing or contradicted. Do not let a strong CV-match score silently compensate for this — surface it, don't bury it.
+5. **If evidence contradicts the `require` criteria** → **cap this dimension at 2/5**, and add an explicit line to Block A's Culture Screen field (see `offer.md`) naming what's missing or contradicted. Do not let a strong CV-match score silently compensate for this — surface it, don't bury it.
 6. **If no evidence exists for any `require` criterion** → score 3 by default, unless `culture_screen.deprioritize_if_absent: true` is set, in which case **cap this dimension at 2/5**.
 7. A role scoring 4.5+ overall but 2 or below on Cultural signals must carry an explicit warning in the report: "High technical fit, unconfirmed/poor culture fit — verify before applying."
 
@@ -207,7 +207,7 @@ After detecting archetype, read `modes/_profile.md` for the user's specific fram
 A mode may tell you to run work in a background subagent (e.g. `scan`, or parallel `pipeline` URLs) to spare the main agent's context. Any subagent you spawn for career-ops is a **single-pass worker**:
 
 - It MUST NOT spawn further subagents, and MUST NOT invoke other skills — especially open-ended or recursive research skills (e.g. a `deep-research` skill). Those fan out into nested agents and can burn tens of millions of tokens on one run.
-- Company, role, and compensation research is ALWAYS done **inline**, with the small explicit set of WebSearch/WebFetch queries the mode names (e.g. `oferta` Blocks C/D) — never delegated to a recursive research harness.
+- Company, role, and compensation research is ALWAYS done **inline**, with the small explicit set of WebSearch/WebFetch queries the mode names (e.g. `offer` Blocks C/D) — never delegated to a recursive research harness.
 - One `/career-ops <JD>` evaluates one role; it must never explode into a self-replicating swarm of agents. If you are about to delegate research or nest agents, stop and do it inline, bounded.
 
 ### Time-to-offer priority
