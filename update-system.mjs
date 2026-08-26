@@ -20,7 +20,7 @@
  */
 
 import { execFile, execFileSync, execSync } from 'child_process';
-import { copyFileSync, readFileSync, writeFileSync, existsSync, unlinkSync, rmSync, renameSync } from 'fs';
+import { copyFileSync, readFileSync, writeFileSync, existsSync, unlinkSync, rmSync } from 'fs';
 import { join, dirname, posix as pathPosix } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 
@@ -62,11 +62,6 @@ export const REEXEC_BUFFER_TIMEOUT_MS = parsePositiveInt(process.env.CAREER_OPS_
 
 // System layer paths — ONLY these files get updated
 const SYSTEM_PATHS = [
-  // .gitattributes governs how every other path below is written to disk, and
-  // `apply` checks paths out one at a time in this order: if it landed later,
-  // everything before it would be written under the old core.autocrlf setting
-  // on an existing install, silently (once text=auto is live, git status stays
-  // clean and only a second update would repair it).
   '.gitattributes',
   'modes/README.md',
   'modes/_shared.md',
@@ -106,6 +101,7 @@ const SYSTEM_PATHS = [
   'interview-prep/sessions/.gitkeep',
   'interview-prep/sessions/README.md',
   'modes/patterns.md',
+  'modes/calibrate.md',
   'modes/titles.md',
   'modes/upskill.md',
   'modes/intake.md',
@@ -138,6 +134,7 @@ const SYSTEM_PATHS = [
   'modes/ru/interview/',
   'modes/tr/',
   'modes/ua/',
+  'modes/ua/interview/',
   'modes/heuristics/',
   'modes/regional/',
   'modes/zh/',
@@ -150,6 +147,7 @@ const SYSTEM_PATHS = [
   'GEMINI.md',
   'KIMI.md',
   'build-dashboard.mjs',
+  'clean-markers.mjs',
   'generate-pdf.mjs',
   'theme-style.mjs',
   'generate-latex.mjs',
@@ -159,7 +157,13 @@ const SYSTEM_PATHS = [
   'lib/cli-flags.mjs',
   'lib/gemini-node-floor.mjs',
   'lib/local-today.mjs',
+  'lib/is-main-module.mjs',
+  'lib/outcome-types.mjs',
   'lib/latex-escape.mjs',
+  'scan-hn.mjs',
+  'scripts/check-syntax.mjs',
+  'scripts/export-ats-text.mjs',
+  'story-provenance-check.mjs',
   'lib/latex-content.mjs',
   'lib/context-budget.mjs',
   'lib/context-budget.test.mjs',
@@ -205,12 +209,9 @@ const SYSTEM_PATHS = [
   'batch-evaluate-gemini.mjs',
   'providers/',
   'seeds/',
-  'scripts/check-syntax.mjs',
   'tests/',
   'user-agent.mjs',
   'doctor.mjs',
-  // doctor.mjs imports this one: an install that receives the new doctor
-  // without it would crash on startup.
   'jsonc-parse.mjs',
   'check-liveness.mjs',
   'liveness-core.mjs',
@@ -218,6 +219,7 @@ const SYSTEM_PATHS = [
   'liveness-browser.mjs',
   'browser-extract.mjs',
   'analyze-patterns.mjs',
+  'calibrate.mjs',
   'upskill.mjs',
   'skill-extract.mjs',
   'intake.mjs',
@@ -238,6 +240,7 @@ const SYSTEM_PATHS = [
   'funnel-velocity.mjs',
   'assessment-log.mjs',
   'contacts.mjs',
+  'linkedin-join.mjs',
   'contacts.test.mjs',
   'weekly-digest.mjs',
   'tracker-sync-check.mjs',
@@ -249,6 +252,7 @@ const SYSTEM_PATHS = [
   'followup-seed.mjs',
   'followup-seed-tests.mjs',
   'profile-language.mjs',
+  'title-keywords.mjs',
   'gemini-eval.mjs',
   'ollama-eval.mjs',
   'openai-eval.mjs',
@@ -349,13 +353,13 @@ const SYSTEM_PATHS = [
   'cv-sections-core.mjs',
   'cv-templates.mjs',
   'playwright.cv.config.mjs',
-  'test/cv-templates.test.mjs',
-  'test/cover-resolver.test.mjs',
-  'test/pipeline-lock.test.mjs',
-  'test/profile-photo.test.mjs',
+  'tests/cv-templates.test.mjs',
+  'tests/cover-resolver.test.mjs',
+  'tests/pipeline-lock.test.mjs',
+  'tests/profile-photo.test.mjs',
   'templates/cv-template.zh-minimal.html',
-  'test/zh-minimal-template.test.mjs',
-  'test/cv-visual/',
+  'tests/zh-minimal-template.test.mjs',
+  'tests/cv-visual/',
   'scaffolder/',
   'Dockerfile',
   'docker-compose.yml',
@@ -494,6 +498,32 @@ export function localUserPaths(root = ROOT) {
     }
     if (path.split(/[\\/]/).includes('..')) {
       reject(path, 'paths must stay inside the repo');
+    }
+    // Canonical spelling, required BEFORE the collision check below.
+    //
+    // That check compares strings exactly (`path === sys`), and
+    // userLayerViolations() later compares against git's changed-path format,
+    // which is always canonical. A non-canonical spelling therefore matches
+    // NEITHER: `./merge-tracker.mjs` sails past the collision check, and is
+    // never recognised as the file it names when the safety check runs. The
+    // declaration silently protects nothing while the updater overwrites the
+    // file — the data loss this feature exists to prevent, reachable from a
+    // plausible typo.
+    //
+    // Rejected rather than normalised, deliberately. Normalising would accept
+    // several spellings for one path and leave this file disagreeing with what
+    // git reports; refusing keeps one path to one spelling, and says so.
+    if (path.includes('\\')) {
+      reject(path, 'paths use forward slashes, matching how git reports them');
+    }
+    // A single trailing slash is the documented directory-prefix form, so it is
+    // dropped before the segment check rather than read as an empty segment.
+    const segments = (path.endsWith('/') ? path.slice(0, -1) : path).split('/');
+    if (segments.includes('')) {
+      reject(path, 'paths must not contain an empty segment (a repeated separator)');
+    }
+    if (segments.includes('.')) {
+      reject(path, 'paths must be written plainly, with no "." segment (use "merge-tracker.mjs", not "./merge-tracker.mjs")');
     }
     const collision = SYSTEM_PATHS.find((sys) =>
       sys.endsWith('/') ? path.startsWith(sys) : path === sys,
@@ -768,6 +798,9 @@ export function gitStatusEntries(root = ROOT) {
 }
 
 export function extractArrayFromSource(source, name) {
+  source = source.replace(/(['"])(?:\\.|(?!\1)[\s\S])*\1|\/\/[^\r\n]*|\/\*[\s\S]*?\*\//g, (token) => (
+    /^['"]/.test(token) ? token : token.replace(/[^\n]/g, ' ')
+  ));
   const match = source.match(new RegExp(`const\\s+${name}\\s*=\\s*\\[([\\s\\S]*?)\\];`));
   if (!match) return [];
   return Array.from(match[1].matchAll(/['"]([^'"]+)['"]/g), (entry) => entry[1]);
@@ -804,6 +837,28 @@ export function staleSystemFiles(localFiles, remoteFiles, systemPaths, userPaths
     .filter((file) => !remote.has(file))
     .filter((file) => systemPaths.some((entry) => pathMatchesManifest(file, entry)))
     .filter((file) => !userPaths.some((entry) => pathMatchesManifest(file, entry)));
+}
+
+// A stale-file prune candidate can still be load-bearing for a file this same
+// run just decided to KEEP because the user modified it (see
+// `locallyModifiedSystemFiles` + the `preservedPaths` handling in `apply()`) —
+// e.g. a user's custom CV template referencing a font file upstream no longer
+// ships. Deleting the referenced asset out from under a preserved file leaves
+// the preserved file silently broken (missing font, broken image) even though
+// the file itself survived. Scoped to preserved HTML/CSS files' on-disk
+// content, since those are the only preserved file types known to reference
+// other system files by relative path.
+export function isReferencedByPreservedFile(candidatePath, preservedPaths, readFile = (path) => readFileSync(path, 'utf-8')) {
+  const basename = normalizeRepoPath(candidatePath).split('/').pop();
+  if (!basename) return false;
+  return preservedPaths.some((preservedPath) => {
+    if (!/\.(html|css)$/i.test(preservedPath)) return false;
+    try {
+      return readFile(join(ROOT, ...preservedPath.split('/'))).includes(basename);
+    } catch {
+      return false;
+    }
+  });
 }
 
 // Files the self-reexec stage must check out so the TARGET update-system.mjs
@@ -886,6 +941,55 @@ export function prepareMaterializedSkillEntrypointsForStage(paths, root = ROOT) 
 }
 
 /**
+ * Does the COMMITTED system tree differ between `upstreamRef` and HEAD?
+ *
+ * check() needs this to tell two apart-shaped situations that both look like
+ * "HEAD ≠ upstream main":
+ *
+ *   1. apply() ran successfully at the current version. It checks out
+ *      upstream content and commits it as a NEW local commit, so HEAD can
+ *      never equal upstream main's SHA again — SHA inequality alone is the
+ *      steady state of every healthy install, not drift.
+ *   2. Upstream changed system files this install has not adopted. That is
+ *      real drift worth surfacing (#2630).
+ *
+ * Only content settles it: a ref-to-ref diff scoped to the system paths.
+ * Compared against the COMMITTED state (HEAD), deliberately not the working
+ * tree — uncommitted local edits to system files are the preserved-edit case
+ * apply() already handles with .bak + messaging (#2337), not an update
+ * waiting to happen.
+ *
+ * `--ignore-cr-at-eol`: a file whose only difference is a CRLF/LF line ending
+ * must not read as drift. Installs that last synced before `.gitattributes`
+ * was introduced carry pre-renormalization blobs that differ from upstream by
+ * line endings alone (#2817 — same rationale as locallyModifiedSystemFiles).
+ *
+ * Failure is conservative by design: an unreadable ref or a git error throws
+ * inside the diff and reads as drift, which preserves the pre-fix behavior
+ * whenever content cannot be verified.
+ *
+ * @param {string[]} systemPaths - Pathspecs scoping the diff (SYSTEM_PATHS).
+ * @param {string} [upstreamRef='FETCH_HEAD'] - Ref holding upstream content.
+ * @param {{git?: (...args: string[]) => string}} [ctx] - Test seam: override
+ *   the git runner (defaults to the module-level git() against ROOT).
+ * @returns {boolean} True when committed system content differs (or cannot
+ *   be proven identical); false when the trees match.
+ */
+export function systemTreeDiffers(systemPaths, upstreamRef = 'FETCH_HEAD', ctx = {}) {
+  const runGit = ctx.git || git;
+  if (!systemPaths || systemPaths.length === 0) return false;
+  try {
+    // --quiet: exit 0 when identical; exit 1 when they differ, which
+    // execFileSync surfaces as a throw — indistinguishable here from any
+    // other failure, and every throw lands on the conservative answer.
+    runGit('diff', '--quiet', '--ignore-cr-at-eol', upstreamRef, 'HEAD', '--', ...systemPaths);
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+/**
  * System-layer files this install changed locally that the update is about to
  * overwrite (#2337).
  *
@@ -943,14 +1047,28 @@ export function locallyModifiedSystemFiles(paths, upstreamRef = 'FETCH_HEAD', ct
     }
   };
 
-  // Without a merge-base (unrelated histories, a shallow clone) fall back to
-  // HEAD: that still catches uncommitted local edits, which is the common case,
-  // and simply misses local edits already committed.
+  // An updater commit is the installed system snapshot. On a later update,
+  // using the original merge-base would mistake the previous update's files
+  // for user edits. Keep the merge-base fallback for installations without a
+  // recorded updater commit.
   let baseline = null;
   try {
-    baseline = runGit('merge-base', 'HEAD', upstreamRef) || null;
+    const updaterCommit = runGit(
+      'log', '-1', '--format=%H', '--grep=^chore: auto-update system files', 'HEAD',
+    ).trim();
+    if (updaterCommit) {
+      runGit('merge-base', '--is-ancestor', updaterCommit, 'HEAD');
+      baseline = updaterCommit;
+    }
   } catch {
     baseline = null;
+  }
+  if (!baseline) {
+    try {
+      baseline = runGit('merge-base', 'HEAD', upstreamRef) || null;
+    } catch {
+      baseline = null;
+    }
   }
 
   const changedLocally = new Set(diffNames(baseline || 'HEAD'));
@@ -1239,7 +1357,6 @@ async function check() {
   if (remoteRef !== null) {
     try { remoteCommit = String(JSON.parse(remoteRef)?.object?.sha || '').trim(); } catch { /* malformed API response */ }
   }
-  const systemTreeDrift = Boolean(localCommit && remoteCommit && localCommit !== remoteCommit);
 
   if (rawVersion !== null) {
     try {
@@ -1281,6 +1398,26 @@ async function check() {
     remote = releaseVersion;
   } else if (releaseVersion && compareVersions(releaseVersion, remote) > 0) {
     remote = releaseVersion;
+  }
+
+  // SHA inequality alone is NOT drift. apply() commits upstream content as a
+  // NEW local commit on the install's own history, so after any successful
+  // update HEAD never equals upstream main again — treating SHA mismatch as
+  // drift made every post-apply check report system-files-changed forever.
+  // Settle it on CONTENT instead: fetch upstream (exactly what apply() does)
+  // and diff the committed system tree (#2630's same-version drift intent).
+  // Computed after the offline early-return above, so a machine with no
+  // network never pays for a doomed git fetch. Fetch/diff failure stays
+  // conservative (drift reported), matching the failed-commit-lookup policy
+  // at the top of this function.
+  let systemTreeDrift = false;
+  if (localCommit && remoteCommit && localCommit !== remoteCommit) {
+    try {
+      gitQuiet('fetch', '--quiet', CANONICAL_REPO, 'main');
+      systemTreeDrift = systemTreeDiffers(SYSTEM_PATHS, 'FETCH_HEAD');
+    } catch {
+      systemTreeDrift = true;
+    }
   }
 
   if (compareVersions(local, remote) >= 0 && !systemTreeDrift) {
@@ -1352,15 +1489,20 @@ function gitShowRaw(spec) {
  * a failed update into exactly the exposure the file exists to prevent, and
  * doing it silently. Mirrors discover-ats.mjs and followup-seed.mjs.
  *
+ * Lazy-imports `renameSyncWithRetry` (see the top-of-file self-loading note —
+ * a static import of tracker-utils.mjs here would crash a pre-#1245 client's
+ * old→new re-exec the same way a static scaffolder/ import would, #1706).
+ *
  * @param {string} filePath - Absolute path to write.
  * @param {string} content - Full file content.
- * @returns {void}
+ * @returns {Promise<void>}
  */
-function writeGitignoreAtomic(filePath, content) {
+async function writeGitignoreAtomic(filePath, content) {
+  const { renameSyncWithRetry } = await import('./tracker-utils.mjs');
   const tmpPath = `${filePath}.tmp-${process.pid}`;
   try {
     writeFileSync(tmpPath, content);
-    renameSync(tmpPath, filePath);
+    renameSyncWithRetry(tmpPath, filePath);
   } catch (err) {
     // The original is still intact: the rename either happened or it did not.
     try { rmSync(tmpPath, { force: true }); } catch { /* already gone */ }
@@ -1649,7 +1791,17 @@ async function apply() {
       }
       if (remoteFiles.size > 0) {
         const localFiles = git('ls-files').split('\n').filter(Boolean);
-        for (const f of staleSystemFiles(localFiles, remoteFiles, SYSTEM_PATHS)) {
+        // A file just preserved above because THIS install modified it (e.g. a
+        // custom cv-template.*.html no longer shipped upstream) must never also
+        // be deleted here as "stale" — the two checks used to run independently,
+        // so a preserved file with no upstream counterpart was backed up to
+        // .bak by the block above and then unlinked by this one in the same run.
+        const staleCandidates = staleSystemFiles(localFiles, remoteFiles, SYSTEM_PATHS, mergePathLists(USER_PATHS, preservedPaths));
+        for (const f of staleCandidates) {
+          if (isReferencedByPreservedFile(f, preservedPaths)) {
+            console.log(`Kept stale asset still referenced by a preserved file: ${f}`);
+            continue;
+          }
           try {
             unlinkSync(join(ROOT, f));
             updated.push(f);
@@ -1661,58 +1813,6 @@ async function apply() {
       }
     } catch (err) {
       console.error(`Stale system-file prune step failed: ${err.message}`);
-    }
-
-    // tests/ and test-fixtures/ are both auto-discovered and EXECUTED
-    // (tests/**/*.test.mjs run directly; test-fixtures/upgrade/<state>/ dirs are
-    // enumerated by seed-fixture.mjs's listStates() and exercised by its
-    // --self-test, which fails if a stale state lacks expected.json/required
-    // files). Stale files left behind by upstream renames would run twice,
-    // crash the suite, or make the self-test iterate a state that no longer
-    // ships upstream. `git checkout` never deletes upstream-removed files (see
-    // the limitation note in rollback below) — prune tracked extras against
-    // FETCH_HEAD. Only git-tracked files are removed: a user's untracked local
-    // experiments in these dirs are never touched.
-    for (const prunePrefix of ['tests/', 'test-fixtures/']) {
-      try {
-        let remoteFiles = new Set();
-        try {
-          remoteFiles = new Set(
-            git('ls-tree', '-r', '--name-only', 'FETCH_HEAD', '--', prunePrefix)
-              .split('\n').filter(Boolean).map((p) => p.replace(/\\/g, '/'))
-          );
-        } catch {
-          // The dir may not exist in older targets (ls-tree throws) — nothing
-          // to prune. This is the only expected-and-silent failure here.
-        }
-        // An empty set means FETCH_HEAD has no such dir at all (older target, or
-        // ls-tree quietly returning nothing) — pruning against it would delete
-        // every local file under the prefix. Only prune when the remote actually
-        // ships the directory.
-        if (remoteFiles.size > 0) {
-          const localFiles = git('ls-files', '--', prunePrefix).split('\n').filter(Boolean);
-          for (const f of localFiles) {
-            if (!remoteFiles.has(f.replace(/\\/g, '/'))) {
-              // Per-file isolation: one failed unlink (locked file, permissions)
-              // must not abort pruning the rest.
-              try {
-                unlinkSync(join(ROOT, f));
-                // Raw path only: `updated` entries are reused as git pathspecs by
-                // revertPaths() and the scoped commit below. Pushed only after a
-                // successful unlink so failed deletions never enter `updated`.
-                updated.push(f);
-                console.log(`Pruned stale file: ${f}`);
-              } catch (err) {
-                console.error(`Failed to prune stale file ${f}: ${err.message}`);
-              }
-            }
-          }
-        }
-      } catch (err) {
-        // Unexpected failure (e.g. ls-files threw) — surface it instead of
-        // silently skipping the prune step.
-        console.error(`Stale-file prune step failed for ${prunePrefix}: ${err.message}`);
-      }
     }
 
     // 3c. Reconcile .gitignore (#2756). Every other system file is checked out
@@ -1754,13 +1854,13 @@ async function apply() {
         // already carries its own final newline; the guard is only for a blob that
         // somehow lacks one.
         const seed = upstreamGitignore.endsWith('\n') ? upstreamGitignore : `${upstreamGitignore}\n`;
-        writeGitignoreAtomic(gitignorePath, seed);
+        await writeGitignoreAtomic(gitignorePath, seed);
         trackGitignore();
         console.log('Restored .gitignore (it was missing).');
       } else {
         const { text, added } = reconcileGitignore(readFileSync(gitignorePath, 'utf-8'), upstreamGitignore);
         if (added.length > 0) {
-          writeGitignoreAtomic(gitignorePath, text);
+          await writeGitignoreAtomic(gitignorePath, text);
           trackGitignore();
           console.log(`.gitignore: appended ${added.length} missing rule(s): ${added.join(', ')}`);
         }

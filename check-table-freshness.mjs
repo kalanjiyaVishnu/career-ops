@@ -52,9 +52,11 @@
 
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
-import { fileURLToPath, pathToFileURL } from 'url';
+import { fileURLToPath } from 'url';
 import * as yaml from 'js-yaml';
 import { flagValue, validateFlags } from './lib/cli-flags.mjs';
+import { localToday } from './lib/local-today.mjs';
+import { isMainModule } from './lib/is-main-module.mjs';
 
 const CAREER_OPS = dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = join(CAREER_OPS, 'templates');
@@ -557,7 +559,7 @@ function runSelfTest() {
 }
 
 // --- Run (CLI only; guarded so the module is safely importable for tests) ---
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (isMainModule(import.meta.url)) {
   validateFlags(args, KNOWN_FLAGS, USAGE, { valueFlags: VALUE_FLAGS });
   if (selfTestMode) {
     runSelfTest();
@@ -571,7 +573,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       process.exit(1);
     }
   } else {
-    todayDate = parseDate(new Date().toISOString().slice(0, 10));
+    // LOCAL day. `expired` exits 1, so the UTC day failed CI a day early for
+    // anyone west of Greenwich and passed a stale table a day late for anyone
+    // east of it (#3070). --today still overrides for deterministic runs.
+    todayDate = parseDate(localToday());
   }
 
   // Precedence: --max-age-months flag > config table_freshness.max_age_months > default 12.

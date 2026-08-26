@@ -36,13 +36,15 @@
 
 import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
-import { fileURLToPath, pathToFileURL } from 'url';
+import { fileURLToPath } from 'url';
 import * as yaml from 'js-yaml';
 import { computeFunnel, computeTrackerStats } from './stats.mjs';
 import { resolveColumns, parseTrackerRow } from './tracker-parse.mjs';
 import { resolveTrackerPath, loadCanonicalStates, resolveCanonicalState } from './tracker-utils.mjs';
 import { parseAppliedDate, normalizeStatus } from './followup-cadence.mjs';
 import { flagValue, validateFlags } from './lib/cli-flags.mjs';
+import { localToday } from './lib/local-today.mjs';
+import { isMainModule } from './lib/is-main-module.mjs';
 
 const CAREER_OPS = dirname(fileURLToPath(import.meta.url));
 const STATES_FILE = join(CAREER_OPS, 'templates/states.yml');
@@ -700,7 +702,9 @@ function main() {
   const logPath = join(dirname(trackerPath), 'status-log.tsv');
   const trackerContent = existsSync(trackerPath) ? readFileSync(trackerPath, 'utf-8') : '';
   const logContent = existsSync(logPath) ? readFileSync(logPath, 'utf-8') : '';
-  const todayStr = new Date().toISOString().slice(0, 10);
+  // LOCAL day: the UTC day is tomorrow for a west-of-Greenwich evening run, so
+  // every "waiting" figure read one day high (#3070).
+  const todayStr = localToday();
 
   if (!trackerContent) {
     if (summaryMode) console.log(`No tracker found at ${trackerPath} — nothing to calibrate yet.`);
@@ -713,6 +717,6 @@ function main() {
   else console.log(JSON.stringify({ ...result, generatedAt: todayStr }, null, 2));
 }
 
-if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+if (isMainModule(import.meta.url)) {
   main();
 }
