@@ -16,6 +16,8 @@ batch/batch-state.tsv
 batch/batch-input.tsv
 batch/tracker-additions/**/*.tsv
 !batch/tracker-additions/.gitkeep
+batch/cv-html/*
+!batch/cv-html/.gitkeep
 jds/*
 !jds/.gitkeep
 
